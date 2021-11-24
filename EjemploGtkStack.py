@@ -11,7 +11,7 @@ class Aplication(Gtk.Window):
         super().__init__(title="Ex de uso de Stack e StackSwitcher")
         self.set_border_width(5)
 
-        caixaV = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing = 5)
+        caixaV = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
         self.add(caixaV)
 
         panel = Gtk.Stack()
@@ -32,7 +32,7 @@ class Aplication(Gtk.Window):
         panel.add_titled(caixadConBotons, "Botones", "Botones")
 
         caixaV.pack_start(selector_paneis, True, True, 0)
-        caixaV.pack_start(panel, True, True,0)
+        caixaV.pack_start(panel, True, True, 0)
 
         self.connect("destroy", Gtk.main_quit)
         self.show_all()
