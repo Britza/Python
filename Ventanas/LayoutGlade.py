@@ -92,6 +92,12 @@ class Aplication(Gtk.Window):
         caixaV.pack_start(caixaGlade, True, True, 0)
 
 
+        cmdElipsis = builder.get_object("cmdElipsis")
+        cmdElipsis.append_text("Start")
+        cmdElipsis.append_text("Midle")
+        cmdElipsis.append_text("End")
+
+
 
 
         self.add(caixaV)
