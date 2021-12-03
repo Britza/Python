@@ -63,6 +63,7 @@ class Aplication(Gtk.Window):
 
         listBox.add(fila3)
 
+
         listBox2 = Gtk.ListBox()
         elementos = "Esta é unha ListBox ordeada para mostra".split()
         for elemento in elementos:
