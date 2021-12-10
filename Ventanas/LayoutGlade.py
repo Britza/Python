@@ -48,6 +48,7 @@ class Aplication(Gtk.Window):
         rede.add(lblEtiqueta)
         caixa = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         txvEtiqueta = Gtk.TextView()
+        self.buferTxvEtiqueta = txvEtiqueta.get_buffer()
         txvEtiqueta.set_size_request(300,50)
         caixa.pack_start(txvEtiqueta, True, True, 0)
         btnEditarEtiqueta = Gtk.Button()
