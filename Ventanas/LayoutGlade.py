@@ -30,10 +30,10 @@ class Aplication(Gtk.Window):
         caixaH = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
 
         lblId = Gtk.Label(label="ID: ")
-        GtkId = Gtk.Entry()
+        self.GtkId = Gtk.Entry()
 
         caixaH.pack_start(lblId, False, False, 0)
-        caixaH.pack_start(GtkId, True, True, 0)
+        caixaH.pack_start(self.GtkId, True, True, 0)
         caixaV.pack_start(caixaH, True, True, 0)
 
         lblApariencia = Gtk.Label()
@@ -51,6 +51,7 @@ class Aplication(Gtk.Window):
         txvEtiqueta.set_size_request(300,50)
         caixa.pack_start(txvEtiqueta, True, True, 0)
         btnEditarEtiqueta = Gtk.Button()
+        btnEditarEtiqueta.connect("clicked", self.on_btn_EditarEtiqueta_clicked)
         imaxe = Gtk.Image.new_from_icon_name("preferences-other", Gtk.IconSize.BUTTON)
         btnEditarEtiqueta.set_image(imaxe)
         caixa.pack_start(btnEditarEtiqueta, True, False, 0)
@@ -91,18 +92,24 @@ class Aplication(Gtk.Window):
         caixaGlade = builder.get_object("caixaGlade")
         caixaV.pack_start(caixaGlade, True, True, 0)
 
+        sinais = {"on_cmdElipsis_changed": self.on_cmdElipsis_changed}
+        builder.connect_signals(sinais)
+        caixaV.pack_start(caixaGlade, True, True, 0)
 
         cmdElipsis = builder.get_object("cmdElipsis")
         cmdElipsis.append_text("Start")
         cmdElipsis.append_text("Midle")
         cmdElipsis.append_text("End")
 
-
-
-
         self.add(caixaV)
         self.connect("destroy", Gtk.main_quit)
         self.show_all()
+
+    def on_cmdElipsis_changed(self, control):
+            self.GtkId.set_text(control.get_active_text())
+
+    def on_btn_EditarEtiqueta_clicked(self, boton):
+            self.GtkId.set_text("Boton pulsado")
 
 
 if __name__ == "__main__":

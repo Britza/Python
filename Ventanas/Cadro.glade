@@ -123,6 +123,7 @@
             <items>
               <item id="1" translatable="yes">None</item>
             </items>
+            <signal name="changed" handler="on_cmdElipsis_changed" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">1</property>
