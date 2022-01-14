@@ -10,20 +10,22 @@ class Aplication(Gtk.Window):
         super().__init__(title="Exemplo Tree View Tre Store")
         self.set_border_width(5)
 
-        modelo = Gtk.TreeStore(str, int, str)
+        modelo = Gtk.TreeStore(str, int, str, bool)
 
         for avo in range (5):
-            punteiroAvo = modelo.append(None, ['Avó', avo, "Sen datos"])
+            punteiroAvo = modelo.append(None, ['Avó', avo, "Sen datos", False])
             for pai in range (4):
-                punteiroPai = modelo.append(punteiroAvo, ['Pai', pai, "Lexítimo"])
+                punteiroPai = modelo.append(punteiroAvo, ['Pai', pai, "Lexítimo", False])
                 for fillo in range (6):
-                    modelo.append(punteiroPai, ['Fillo', fillo, "Lexítimo"])
+                    modelo.append(punteiroPai, ['Fillo', fillo, "Lexítimo", True])
 
-        trvArboreXenealoxico = Gtk.TreeView(modelo)
+        trvArboreXenealoxico = Gtk.TreeView(model=modelo)
         trvColumna = Gtk.TreeViewColumn('Parentesco')
+
         trvArboreXenealoxico.append_column(trvColumna)
         celda = Gtk.CellRendererText()
         celda.set_property("editable", True)
+        celda.connect("edited", self.on_columna_changed, modelo)
         trvColumna.pack_start(celda, True)
         trvColumna.add_attribute(celda, "text", 0)
         trvColumna = Gtk.TreeViewColumn('Orde')
@@ -46,6 +48,13 @@ class Aplication(Gtk.Window):
         trvColumnaCombo = Gtk.TreeViewColumn("Combo", celdaCombo, text=2)
         trvArboreXenealoxico.append_column(trvColumnaCombo)
 
+        trvColumnaFalecidos = Gtk.TreeViewColumn("Falecidos")
+        trvArboreXenealoxico.append_column(trvColumnaFalecidos)
+        celda = Gtk.CellRendererToggle()
+        celda.connect("toggled", self.on_celda_toggled, modelo)
+        trvColumnaFalecidos.pack_start(celda, True)
+        trvColumnaFalecidos.add_attribute(celda, "active", 3)
+
         self.add(trvArboreXenealoxico)
         self.connect("destroy", Gtk.main_quit)
         self.show_all()
@@ -53,6 +62,12 @@ class Aplication(Gtk.Window):
 
     def on_combo_changed(self, control, fila, texto, modelo):
         modelo[fila][2] = texto
+
+    def on_columna_changed(self, control, fila, texto, modelo):
+        modelo[fila][0] = texto
+
+    def on_celda_toggled(self, control, fila, modelo):
+        modelo[fila][3] =not modelo[fila][3]
 
 
 if __name__ == "__main__":
