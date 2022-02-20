@@ -1,4 +1,3 @@
-
 from reportlab.platypus import SimpleDocTemplate, Spacer
 from reportlab.graphics.charts.piecharts import Pie
 from reportlab.graphics.charts.barcharts import VerticalBarChart
